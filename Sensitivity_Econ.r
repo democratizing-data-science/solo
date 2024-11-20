@@ -13,9 +13,9 @@ package.check <- lapply(
 )
 
 a<-read.csv("https://raw.githubusercontent.com/democratizing-data-science/solo/refs/heads/main/Econscopus.csv")
-table(a$Authors=="")
-table(a$Authors!="[No author id available]")
-a <- a[a$Authors!="",]
+table(a$ï..Authors=="")
+table(a$ï..Authors!="[No author id available]")
+a <- a[a$ï..Authors!="",]
 
 #Keeping only column with author relationships
 authors<-as.data.frame(a[,1])#"Author.s..ID"])
