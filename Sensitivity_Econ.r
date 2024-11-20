@@ -27,44 +27,6 @@ colnames(authors)<-"AU"
 
 #As can be seen in the file the separator of interest is :
 a1<-cSplit(authors, splitCols = "AU", sep = ";", direction = "wide", drop = TRUE) #retain the matrix form version of the adjacency list input
- # fix(a1)
-class(a1)
-
-# In case package cannot be installed uncomment and keep working using this version, alternatively you can decompose the cells into columns using excel
-
-#read it as a matrix
-mat <- as.matrix(a1)
-# mat
-
-dim(mat)# the resulting column dimension is the number of times you will have to repeat the following procedure minus 1
-mat <- cbind(a$EID, mat)
-edgelist1<-matrix(NA, 1, 2)#empty matrix two columns
-# for (i in 1:(ncol(mat)-1)) {# for coauthors
-for (i in 1:1) {
-  edgelist11 <- cbind(mat[, i], c(mat[, -c(1:i)]))
-  edgelist1 <- rbind(edgelist1,edgelist11)
-  edgelist1<-edgelist1[!is.na(edgelist1[,2]),]
-  edgelist1<-edgelist1[edgelist1[,2]!="",]
-  }
-dim(edgelist1)
-
-# install.packages("igraph")
-
-g<- graph.data.frame(edgelist1[, 2:1], directed = FALSE)
-V(g)$type <- V(g)$name %in% edgelist1[ , 2]
-table(V(g)$type)
-i<-table(V(g)$type)[2]
-
-#Transformations to retain actors
-
-mat_g2_incidence <- t(get.incidence(g))
-# This removes papers with only one author
-# dim(mat_g2_incidence[,colSums(mat_g2_incidence)>1])
-# mat_g2_incidence <- mat_g2_incidence[,colSums(mat_g2_incidence)>1]
-dta <- data.frame(id=rownames(mat_g2_incidence), count=rowSums(mat_g2_incidence))
-dta <- dta[order(dta$count, decreasing=T), ]
-
-
 #solo authors
 a1 <- as.matrix(a1)
 a$author_number <- ncol(a1)-rowSums(is.na(a1))
