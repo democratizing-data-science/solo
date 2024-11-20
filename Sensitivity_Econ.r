@@ -12,7 +12,7 @@ package.check <- lapply(
   }
 )
 
-a<-read.csv("C:\\Users\\msgc\\Desktop\\Econscopus.csv")
+a<-read.csv("https://raw.githubusercontent.com/democratizing-data-science/solo/refs/heads/main/Econscopus.csv")
 table(a$Authors=="")
 table(a$Authors!="[No author id available]")
 a <- a[a$Authors!="",]
@@ -72,7 +72,7 @@ a$author_binary <- ifelse(a$author_number>1, 0, 1)
 summary(lm(Cited.by~author_binary, data=a))
 
 #Load without selfcitation
-b <- read.csv("C:\\Users\\msgc\\Desktop\\econallPHUDCFILY.csv")
+b <- read.csv("https://raw.githubusercontent.com/democratizing-data-science/solo/refs/heads/main/econallPHUDCFILY.csv")
 a$no_self <- b$Total[match(a$ISSN, b$ISSN)]
 a$no_self1 <- b$Total[match(a$Title, b$Document.Title)]
 head(a[,c("no_self1","cit","author_binary")],100)
